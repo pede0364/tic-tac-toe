@@ -27,9 +27,12 @@ function Board({ xIsNext, values, onPlay }) {
     onPlay(valuesClone);
   }
 
-  const winner = calculateWinner(values);
+  /* if winner exists, declare a winner; else tell me who is next */
+  const winningRow = calculateWinner(values);
+  console.log("winningRow", winningRow);
   let status;
-  if (winner) {
+  if (winningRow) {
+    const winner = values[winningRow[0]];
     status = "Winner: " + winner;
   } else {
     status = "Next player: " + (xIsNext ? "X" : "O");
@@ -119,7 +122,7 @@ function calculateWinner(values) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (values[a] && values[a] === values[b] && values[a] === values[c]) {
-      return values[a];
+      return lines[i];
     }
   }
   return null;
