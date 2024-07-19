@@ -15,7 +15,7 @@ function Board({ xIsNext, values, onPlay }) {
       return;
     }
 
-    /* clone the array of square elements */
+    /* clone the array of value elements */
     const valuesClone = values.slice();
     console.log("valuesClone", valuesClone);
 
@@ -62,7 +62,7 @@ export default function Game() {
   console.log("history", history);
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0; // current move is even, x is next
-  const currentSquares = history[currentMove];
+  const currentValues = history[currentMove];
 
   function handlePlay(valuesClone) {
     /* spread the history array from move zero to now, then add the latest value history to the end */
@@ -75,9 +75,13 @@ export default function Game() {
     setCurrentMove(nextMove);
   }
 
-  const moves = history.map((values, move) => {
+  const moves = history.map((_values, move) => {
+    console.log("moves values", _values);
+    console.log("move", move);
     let description;
-    if (move > 0) {
+    if (currentMove === move) {
+      description = "You are at move #" + move;
+    } else if (move > 0) {
       description = "Go to move #" + move;
     } else {
       description = "Go to game start";
@@ -92,7 +96,7 @@ export default function Game() {
   return (
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} values={currentSquares} onPlay={handlePlay} />
+        <Board xIsNext={xIsNext} values={currentValues} onPlay={handlePlay} />
       </div>
       <div className="game-info">
         <ol>{moves}</ol>
