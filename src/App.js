@@ -10,7 +10,7 @@ function Square({ value, onSquareClick }) {
 
 function Board({ xIsNext, values, onPlay }) {
   function handleClick(i) {
-    /* if current square is not null OR a winning row is true, stop */
+    /* if current square value is not null OR a winning row is true, stop */
     if (values[i] || calculateWinner(values)) {
       return;
     }
@@ -27,7 +27,7 @@ function Board({ xIsNext, values, onPlay }) {
     onPlay(valuesClone);
   }
 
-  /* if winner exists, declare a winner; else tell me who is next */
+  /* if winning row exists, declare a winner; else tell me who is next */
   const winningRow = calculateWinner(values);
   console.log("winningRow", winningRow);
   let status;
